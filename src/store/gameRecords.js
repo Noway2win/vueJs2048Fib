@@ -1,6 +1,6 @@
 const CounterState = {
 	state: {
-		record: 45,
+		record: { result: 45, playerName: 'Игрок 1' },
 		results: [],
 	},
 	mutations: {
@@ -14,13 +14,13 @@ const CounterState = {
 	actions: {
 		newResult({ commit, state }, payload) {
 			commit('addResult', payload);
-			if (payload > state.record) {
+			if (payload.result > state.record.result) {
 				commit('updateRecord', payload);
 			}
 		}
 	},
 	getters: {
-		record: state => state.record,
+		record: state => state.record.result,
 		results: state => state.results
 	},
 	namespaced: true,

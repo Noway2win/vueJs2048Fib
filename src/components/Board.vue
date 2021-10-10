@@ -1,27 +1,17 @@
 <template>
-<h2  v-if="!loseStatus">Total {{total}}</h2>
-<h2>Best result {{record}}</h2>
-<div class="board" v-if="!loseStatus"
-	@keypress.a="moveBlocksLeft"
-	@keypress.d="moveBlocksRight"
-	@keypress.w="moveBlocksTop"
-	@keypress.s="moveBlocksBottom"
-	tabindex="0"
-	ref="gameboard">
+<div class="stats"><p>Player: {{playerName}}</p><p>Result: {{total}}</p></div>
+<div class="board">
 	<BoardBlock v-for="block in blocks" :key="block.id" :value="block.value"/>
 </div>
-<GameResults v-else>{{total}}</GameResults>
 </template>
 
 <script>
 import {mapGetters, mapActions} from 'vuex';
 import BoardBlock from "@/components/BoardBlock";
-import GameResults from "@/components/GameResults";
 
 export default {
 	data() {
 		return {
-			loseStatus: false,
 			blocks:[
 				{id:1, value: null},
 				{id:2, value: null},
@@ -33,6 +23,13 @@ export default {
 				{id:8, value: null},
 				{id:9, value: null},],		
 		}
+	},
+	emits: ['gameEnded'],
+	props:{
+		playerName: {
+			type: String,
+			required: true,
+		},
 	},
 	methods: {
 		...mapActions({
@@ -102,7 +99,7 @@ export default {
 					break;
 			}
 			if(!this.loseStatus){
-				this.addValue()
+					this.addValue()
 				}
 		},
 		checkForLose(){
@@ -123,7 +120,8 @@ export default {
 					}
 				}
 			}
-			this.gameEnded(this.total)
+			this.gameEnded({result: this.total, playerName: this.playerName});
+			this.$emit('gameEnded', this.total);
 			return true;
 		},
 		addValue(){
@@ -135,15 +133,31 @@ export default {
 				const blockToAddValue = availableBlocks[Math.floor(Math.random() * availableBlocks.length)];
 				blockToAddValue.value = Math.random() > 0.8 ? 2: 1;
 			}
+		},
+		bindEventListners(e){
+			if(e.keyCode === 37){
+				this.moveBlocksLeft();
+			}
+			if(e.keyCode === 38){
+				this.moveBlocksTop();
+			}
+			if(e.keyCode === 39){
+				this.moveBlocksRight();
+			}
+			if(e.keyCode === 40){
+				this.moveBlocksBottom();
+			}
 		}	
 	},
 	mounted(){
-		this.$refs.gameboard.focus();
+		window.addEventListener('keydown', this.bindEventListners);
 		this.addValue();
+	},
+	beforeUnmount(){
+		window.removeEventListener('keydown', this.bindEventListners);
 	},
 	components: {
 		BoardBlock,
-		GameResults,
 	},
 	computed:{
 		total(){
@@ -165,7 +179,18 @@ export default {
 	width:400px;
 	height:400px;
 	background-color: black;
-	border-radius: 5px;
+	border-radius: 0 0 5px 5px;
 	padding:5px;
+}
+.stats{
+	width:400px;
+	height:50px;
+	background-color: black;
+	color:#fff;
+	display: flex;
+	border-radius: 5px 5px 0 0;
+	padding:5px;
+	justify-content: space-between;
+	align-items: center;
 }
 </style>

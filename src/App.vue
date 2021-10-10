@@ -1,7 +1,6 @@
 <template>
   <div id="nav">
     <router-link to="/">Game</router-link>
-	<router-link to="/counter">Counter</router-link> 
     <router-link to="/about">About</router-link>
   </div>
   <router-view/>

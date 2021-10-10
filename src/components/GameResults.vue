@@ -1,13 +1,15 @@
 <template>
   <section class="game-results">
-	<h2>Thanks for the game</h2>
+	<h2>Thanks for the game, {{playerName}}</h2>
 	<p>You have <slot></slot> points</p>
   </section>
 </template>
 
 <script>
 export default {
-
+	props:{
+		playerName: String,
+	}
 }
 </script>
 
