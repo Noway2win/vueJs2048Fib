@@ -120,7 +120,7 @@ export default {
 					}
 				}
 			}
-			this.gameEnded({result: this.total, playerName: this.playerName});
+			this.gameEnded({result: this.total, playerName: this.playerName, id: Date.now()});
 			this.$emit('gameEnded', this.total);
 			return true;
 		},
@@ -136,15 +136,19 @@ export default {
 		},
 		bindEventListners(e){
 			if(e.keyCode === 37){
+				e.preventDefault();
 				this.moveBlocksLeft();
 			}
 			if(e.keyCode === 38){
+				e.preventDefault();
 				this.moveBlocksTop();
 			}
 			if(e.keyCode === 39){
+				e.preventDefault();
 				this.moveBlocksRight();
 			}
 			if(e.keyCode === 40){
+				e.preventDefault();
 				this.moveBlocksBottom();
 			}
 		}	

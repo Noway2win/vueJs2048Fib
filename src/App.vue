@@ -1,6 +1,7 @@
 <template>
   <div id="nav">
     <router-link to="/">Game</router-link>
+	<router-link to="/records">Records</router-link>
     <router-link to="/about">About</router-link>
   </div>
   <router-view/>
@@ -24,6 +25,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  box-sizing: border-box;
 }
 
 #nav a {
