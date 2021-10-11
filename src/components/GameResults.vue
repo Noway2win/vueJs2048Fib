@@ -1,7 +1,7 @@
 <template>
   <section class="game-results">
-	<h2>Thanks for the game, {{playerName}}</h2>
-	<p>You have <slot></slot> points</p>
+	<h2>Thanks for the game, <span class="highlighted-text">{{playerName}}</span> </h2>
+	<p>You have <span class="highlighted-text"><slot></slot></span> points</p>
   </section>
 </template>
 

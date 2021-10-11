@@ -8,6 +8,12 @@
 </template>
 
 <style>
+body{
+	min-height:100vh;
+	min-width: 100vw;
+	padding: 0;
+	margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -17,6 +23,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width:100%;
+  min-height:100vh;
+  background-color: #e84393;
+  background-image: linear-gradient(315deg, #e84393 0%, #000000 74%);
 }
 
 #nav {
@@ -30,10 +40,13 @@
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #f7e4ad;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #fcd360;
+}
+.highlighted-text{
+	color:#fcd360;
 }
 </style>

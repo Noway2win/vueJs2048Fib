@@ -1,5 +1,8 @@
 <template>
-<h2>Best result {{record}}</h2>
+<div class="record-info">
+	<h2 class="record-info_result">Best result now is <span class="highlighted-text">{{record.result}}</span> points</h2>
+	<span  class="record-info_player">Performed by <span class="highlighted-text">{{record.playerName}}</span></span>
+</div>
 <NameInput v-if="!playerName && !loseStatus" @nameadd="updateName"></NameInput>
 <Board v-if="!loseStatus && playerName" @gameEnded="gameEnded" :playerName="playerName"></Board>
 <GameResults v-if="finalResult && playerName" :playerName="playerName">{{finalResult}}</GameResults>
@@ -45,6 +48,24 @@ export default {
 </script>
 
 <style scoped>
+.record-info{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap:5px;
+	padding: 20px;
+}
+.record-info_result{
+	font-size: 1.5em;
+	font-weight: bold;
+	margin: 0;
+	color: #f7e4ad;
+}
+.record-info_player{
+	font-size: 1.25em;
+	margin: 0;
+	color: #f7e4ad;
+}
 .board{
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);

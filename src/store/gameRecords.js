@@ -1,7 +1,7 @@
 const CounterState = {
 	state: {
-		record: { result: 45, playerName: 'Игрок 1' },
-		results: [],
+		record: { result: 100000000, playerName: 'Maria' },
+		results: [{ result: 100000000, playerName: 'Maria' }],
 	},
 	mutations: {
 		updateRecord(state, payload) {
@@ -20,7 +20,7 @@ const CounterState = {
 		}
 	},
 	getters: {
-		record: state => state.record.result,
+		record: state => state.record,
 		results: state => state.results
 	},
 	namespaced: true,
