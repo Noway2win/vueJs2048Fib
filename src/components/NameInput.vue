@@ -1,18 +1,34 @@
 <template>
   <form @submit.prevent="submitName" class="name-form">
-	<label for="input-for-name" class="name-input_label" :class="error?'name-input_label__error':null">Name</label>
-	<input id="input-for-name" class="name-input" type="text" v-model="name" :class="error? 'name-input__error': null" placeholder="Type your name..."/>
+	<label for="input-for-name" class="name-input_label" :class="errors.name?'name-input_label__error':null">Name</label>
+	<input 
+		id="input-for-name" 
+		class="name-input" 
+		type="text" 
+		v-model="input" 
+		:class="errors.name? 'name-input__error': null" 
+		placeholder="Type your name..."
+		@keyup="validateInput"
+		@blur="validateInput"/>
 	<button type="submit">Add name</button>
   </form>
 </template>
 
 <script>
+import {ref} from 'vue';
+import useFormValidation from "@/modules/useValidation";
+
 export default {
-	data(){
-		return{
-			name: '',
-			error: false
-		}
+	setup(){
+		let input = ref("");
+		
+		const { validateNameField, errors } = useFormValidation();
+		
+		const validateInput = () => {
+			validateNameField("name", input.value);
+		};
+
+		return { input, errors, validateInput };
 	},
 	emits:{
 		nameadd:(name)=>{
@@ -21,20 +37,9 @@ export default {
 	},
 	methods:{
 		submitName(){
-			if(!this.name){
-				this.error = true;
-			}
-			this.$emit('nameadd', this.name)
+			this.$emit('nameadd', this.input);
 		}
 	},
-	watch:{
-		name(newName){
-			if(newName){
-				this.error = false;
-			}
-			this.name=newName;
-		}
-	}
 }
 </script>
 
